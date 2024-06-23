@@ -8,8 +8,8 @@ const app = express();
 
 app.use(express.static('public'));
 
-const uri = process.env.mongodb_uri;
-const client = new MongoClient(uri, {
+const url = process.env.DATABASE_URL;
+const client = new MongoClient(url, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -31,6 +31,6 @@ app.listen(PORT, () =>
 );
 
 app.get('/api/products', async (req, res) => {
-  const products = await productCollection.find({}, { limit: 3 }).toArray();
+  const products = await productCollection.find({}, { limit: 5 }).toArray();
   res.json({ products });
 });
